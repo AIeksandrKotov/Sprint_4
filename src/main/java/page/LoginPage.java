@@ -12,23 +12,23 @@ public class LoginPage {
         this.driver = driver;
     }
 
-    private final By COOKIE = By.xpath("//button[@class='App_CookieButton__3cvqF']"); // Куки
-    private final By BUTTON_ORDER_TOP = By.xpath("//button[@class='Button_Button__ra12g']"); // Верхняя кнопка заказать
-    private final By BUTTON_ORDER_LOWER = By.xpath("//button[@class='Button_Button__ra12g Button_UltraBig__UU3Lp']"); // Нижняя кнопка заказать
-    private final By ORDER_NAME = By.cssSelector("div.Order_Form__17u6u > div:nth-child(1) > input"); // Строка с именем
-    private final By ORDER_FIRS_NAME = By.cssSelector("div.Order_Form__17u6u > div:nth-child(2) > input"); // Строка с Фамилией
-    private final By ORDER_ADDRESS = By.cssSelector("div.Order_Form__17u6u > div:nth-child(3) > input"); // Строка с адресом
-    private final By ORDER_METRO = By.cssSelector("div.Order_Form__17u6u > div:nth-child(4) > div > div"); //Строка с выбором метро
-    private final By ORDER_TELEPHONE = By.cssSelector("div.Order_Form__17u6u > div:nth-child(5) > input"); // Строка с телефоном
-    private final By BUTTON_NEXT = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM']"); // Кнопка далее
+    private static final By COOKIE = By.xpath("//button[@class='App_CookieButton__3cvqF']"); // Куки
+    private static final By BUTTON_ORDER_TOP = By.xpath("//button[@class='Button_Button__ra12g']"); // Верхняя кнопка заказать
+    private static final By BUTTON_ORDER_LOWER = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM']"); // Нижняя кнопка заказать
+    private static final By ORDER_NAME = By.cssSelector("div.Order_Form__17u6u > div:nth-child(1) > input"); // Строка с именем
+    private static final By ORDER_FIRS_NAME = By.cssSelector("div.Order_Form__17u6u > div:nth-child(2) > input"); // Строка с Фамилией
+    private static final By ORDER_ADDRESS = By.cssSelector("div.Order_Form__17u6u > div:nth-child(3) > input"); // Строка с адресом
+    private static final By ORDER_METRO = By.cssSelector("div.Order_Form__17u6u > div:nth-child(4) > div > div"); //Строка с выбором метро
+    private static final By ORDER_TELEPHONE = By.cssSelector("div.Order_Form__17u6u > div:nth-child(5) > input"); // Строка с телефоном
+    private static final By BUTTON_NEXT = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM']"); // Кнопка далее
 
     // Второе окно регистрации
-    private final By ORDER_DATA = By.xpath("//div[@class='react-datepicker__input-container']/input[@type='text']"); // Дата когда привести
-    private final By ORDER_LEASE = By.xpath("//div[@class='Dropdown-root']"); // Строка аренды
-    private final By ORDER_COLOR = By.xpath("//div[@class='Order_Checkboxes__3lWSI']"); // Строка выбора цвета
-    private final By ORDER_COMMENT = By.xpath("//div[@class='Input_InputContainer__3NykH']/input[@class='Input_Input__1iN_Z Input_Responsible__1jDKN']"); // Строка комментарий
-    private final By BUTTON_REQUEST = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM']"); // Кнопка заказать
-    private final By BUTTON_ORDER_CONFIRMATION = By.xpath("//div[@class='Order_Buttons__1xGrp']/button[text()='Да']"); // Кнопка Да
+    private static final By ORDER_DATA = By.xpath("//div[@class='react-datepicker__input-container']/input[@type='text']"); // Дата когда привести
+    private static final By ORDER_LEASE = By.xpath("//div[@class='Dropdown-root']"); // Строка аренды
+    private static final By ORDER_COLOR = By.xpath("//div[@class='Order_Checkboxes__3lWSI']"); // Строка выбора цвета
+    private static final By ORDER_COMMENT = By.xpath("//div[@class='Input_InputContainer__3NykH']/input[@class='Input_Input__1iN_Z Input_Responsible__1jDKN']"); // Строка комментарий
+    private static final By BUTTON_REQUEST = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM']"); // Кнопка заказать
+    private static final By BUTTON_ORDER_CONFIRMATION = By.xpath("//div[@class='Order_Buttons__1xGrp']/button[text()='Да']"); // Кнопка Да
 
     public static final By ORDER_PLACED = By.xpath("//div[@class='Order_Modal__YZ-d3']/div[text()='Заказ оформлен']");
 
@@ -132,26 +132,14 @@ public class LoginPage {
     }
 
     // Метод авторизации в приложении
-    public void loginButtonTop(String username, String firstName, String address, int metroName, String numberPhone, String dateOrder, int leasPeriod, String color, String comment){
+    public void login(String button, String userName, String firstName, String address, int metroName, String numberPhone, String dateOrder, int leasPeriod, String color, String comment){
         clickCookie();
-        clickButtonOrder();
-        setUserName(username);
-        setFirstName(firstName);
-        setAddress(address);
-        setOrderMetro(metroName);
-        setTelephone(numberPhone);
-        setButtonNext();
-        setOrderData(dateOrder);
-        setOrderLease(leasPeriod);
-        setOrderColor(color);
-        setOrderComment(comment);
-        setButtonRequest();
-        setButtonConfirm();
-    }
-    public void loginButtonLower(String username, String firstName, String address, int metroName, String numberPhone, String dateOrder, int leasPeriod, String color, String comment){
-        clickCookie();
-        clickButtonLower();
-        setUserName(username);
+        if (button.equals("topButton")) {
+            clickButtonOrder();
+        } else if (button.equals("lowerButton")) {
+            clickButtonLower();
+        }
+        setUserName(userName);
         setFirstName(firstName);
         setAddress(address);
         setOrderMetro(metroName);

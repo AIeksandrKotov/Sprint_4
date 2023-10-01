@@ -14,16 +14,16 @@ import static org.junit.Assert.assertEquals;
 // Создаем поля где будут храниться параметры тестового метода
 @RunWith(Parameterized.class)
 public class TextQuestions extends BaseTest {
-    private final By QUESTIONS;
-    private final By RESPONSE;
-    private final String TEXT_RESPONSE;
+    private final By questions;
+    private final By response;
+    private final String textResponse;
 
 
     // принимаем значение полей
     public TextQuestions(By questionsItem, By responsesItem, String TextResponse) {
-        this.QUESTIONS = questionsItem;
-        this.RESPONSE = responsesItem;
-        this.TEXT_RESPONSE = TextResponse;
+        this.questions = questionsItem;
+        this.response = responsesItem;
+        this.textResponse = TextResponse;
     }
 
 
@@ -46,11 +46,11 @@ public class TextQuestions extends BaseTest {
     public void testQuestionsDropdowns() {
         MainPageQuestions MainPageQuestions = new MainPageQuestions(driver);
 
-        MainPageQuestions.clickQuestion(QUESTIONS);
+        MainPageQuestions.clickQuestion(questions);
         MainPageQuestions.closeCookie();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        String resultText = MainPageQuestions.getResponse(RESPONSE);
-        assertEquals("Ошибка в тексте элемента выпадающего списка", TEXT_RESPONSE, resultText);
+        String resultText = MainPageQuestions.getResponse(response);
+        assertEquals("Ошибка в тексте элемента выпадающего списка", textResponse, resultText);
     }
     @After
     public void closeBrowser() {

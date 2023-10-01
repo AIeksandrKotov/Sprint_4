@@ -15,51 +15,47 @@ import static page.LoginPage.ORDER_PLACED;
 // Создаем поля где будут храниться параметры тестового метода
 @RunWith(Parameterized.class)
 public class TestPageLogin extends BaseTest {
-    private final String USER_NAME;
-    private final String FIRST_NAME;
-    private final String ADDRESS;
-    private final int METRO_NAME;
-    private final String NUMBER_PHONE;
-    private final String DATA_ORDER;
-    private final int LEAS_PERIOD;
-    private final String COLOR;
-    private final String COMMENT;
+    private final String button;
+    private final String userName;
+    private final String firstName;
+    private final String address;
+    private final int metroName;
+    private final String numberPhone;
+    private final String dateOrder;
+    private final int leasPeriod;
+    private final String color;
+    private final String comment;
 
     // Создаем конструктор, который принимает значение всех полей
-    public TestPageLogin(String userName, String firstName, String address, int metroName, String numberPhone, String dateOrder, int leasPeriod, String color, String comment) {
-        this.USER_NAME = userName;
-        this.FIRST_NAME = firstName;
-        this.ADDRESS = address;
-        this.METRO_NAME = metroName;
-        this.NUMBER_PHONE = numberPhone;
-        this.DATA_ORDER = dateOrder;
-        this.LEAS_PERIOD = leasPeriod;
-        this.COLOR = color;
-        this.COMMENT = comment;
+    public TestPageLogin(String button, String userName, String firstName, String address, int metroName, String numberPhone, String dateOrder, int leasPeriod, String color, String comment) {
+        this.button = button;
+        this.userName = userName;
+        this.firstName = firstName;
+        this.address = address;
+        this.metroName = metroName;
+        this.numberPhone = numberPhone;
+        this.dateOrder = dateOrder;
+        this.leasPeriod = leasPeriod;
+        this.color = color;
+        this.comment = comment;
     }
 
     // Передаем тестовые данные
     @Parameterized.Parameters
     public static Object[][] getUserLogin() {
         return new Object[][]{
-                {"Александр", "Котов", "Всеволожск", 2, "89110271187","19.09.2023", 2, "grey", ""},
-                {"Иванов Иван", "Иванович", "Невский пр.", 4, "+79110271187","11.02.2022", 3, "black", ""},
+                {"topButton", "Александр", "Котов", "Всеволожск", 2, "89110271187", "19.09.2023", 2, "grey", ""},
+                {"lowerButton", "Иванов Иван", "Иванович", "Невский пр.", 4, "+79110271187", "11.02.2022", 3, "black", ""},
         };
 
     }
+
     @Test
-    public void orderRegistrationTopButton(){
+    public void orderRegistration() {
         new LoginPage(driver)
-                .loginButtonTop(USER_NAME, FIRST_NAME, ADDRESS, METRO_NAME, NUMBER_PHONE, DATA_ORDER, LEAS_PERIOD, COLOR, COMMENT);
+                .login(button, userName, firstName, address, metroName, numberPhone, dateOrder, leasPeriod, color, comment);
         String text = driver.findElement(ORDER_PLACED).getText();
-        MatcherAssert.assertThat("Заказ не оформлен",text, containsString("Заказ оформлен"));
-    }
-    @Test
-    public void orderRegistrationLowerButton(){
-        new LoginPage(driver)
-                .loginButtonLower(USER_NAME, FIRST_NAME, ADDRESS, METRO_NAME, NUMBER_PHONE, DATA_ORDER, LEAS_PERIOD, COLOR, COMMENT);
-        String text = driver.findElement(ORDER_PLACED).getText();
-        MatcherAssert.assertThat("Заказ не оформлен",text, containsString("Заказ оформлен"));
+        MatcherAssert.assertThat("Заказ не оформлен", text, containsString("Заказ оформлен"));
     }
     @After
     public void closeBrowser() {
